@@ -1,62 +1,257 @@
 /**
  * Design Tokens & CSS Variables
+ * Dark-first theme with light mode support (neo-brutalist)
  */
+
 :root {
+  /* Fonts */
+  --font-display: 'Syne', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Dark Theme (Default) */
   /* Brand Palette */
-  --color-primary: #ff6600;
-  --color-primary-hover: #ff771a;
-  --color-primary-light: rgba(255, 102, 0, 0.12);
-  --color-primary-focus: rgba(255, 102, 0, 0.25);
+  --color-primary: #8ed5ff;
+  --color-primary-hover: #7bd0ff;
+  --color-primary-light: rgba(142, 213, 255, 0.15);
+  --color-primary-focus: rgba(142, 213, 255, 0.25);
+  --color-primary-container: #38bdf8;
+  --color-primary-fixed: #c4e7ff;
+  --color-primary-fixed-dim: #7bd0ff;
+  --color-on-primary: #00354a;
+  --color-on-primary-container: #004965;
+  --color-on-primary-fixed: #001e2c;
+  --color-on-primary-fixed-variant: #004c69;
 
-  /* Neutrals (Modern Dark-First Theme) */
-  --bg-app: #0e0f12;
-  --bg-surface: #16171d;
-  --bg-surface-elevated: #1f2029;
-  --bg-surface-hover: #262733;
-  --border-subtle: #2b2d3a;
-  --border-focus: #ff6600;
+  --color-secondary: #ddb7ff;
+  --color-secondary-hover: #e8ccff;
+  --color-secondary-light: rgba(221, 183, 255, 0.15);
+  --color-secondary-container: #6f00be;
+  --color-secondary-fixed: #f0dbff;
+  --color-secondary-fixed-dim: #ddb7ff;
+  --color-on-secondary: #490080;
+  --color-on-secondary-container: #d6a9ff;
+  --color-on-secondary-fixed: #2c0051;
+  --color-on-secondary-fixed-variant: #6900b3;
 
-  /* Typography */
-  --text-main: #f0f1f5;
-  --text-muted: #9598ab;
+  --color-tertiary: #ffb9d2;
+  --color-tertiary-hover: #ffcce3;
+  --color-tertiary-light: rgba(255, 185, 210, 0.15);
+  --color-tertiary-container: #ff8dbc;
+  --color-tertiary-fixed: #ffd9e4;
+  --color-tertiary-fixed-dim: #ffb0cd;
+  --color-on-tertiary: #640039;
+  --color-on-tertiary-container: #870050;
+  --color-on-tertiary-fixed: #3e0022;
+  --color-on-tertiary-fixed-variant: #8c0053;
+
+  /* Logo Orange (only on Y logo) */
+  --color-logo: #ff6600;
+  --color-logo-glow: rgba(255, 102, 0, 0.4);
+
+  /* Neutrals - Dark */
+  --bg-app: #0f131d;
+  --bg-surface: #0f131d;
+  --bg-surface-low: #171b26;
+  --bg-surface-container-low: #171b26;
+  --bg-surface-container: #1c1f2a;
+  --bg-surface-container-high: #262a35;
+  --bg-surface-container-highest: #313540;
+  --bg-surface-container-lowest: #0a0e18;
+  --bg-surface-dim: #0f131d;
+  --bg-surface-bright: #353944;
+
+  --border-subtle: #3e484f;
+  --border-outline: #87929a;
+  --border-outline-variant: #3e484f;
+
+  --text-main: #dfe2f1;
+  --text-on-surface: #dfe2f1;
+  --text-on-surface-variant: #bdc8d1;
+  --text-muted: #87929a;
   --text-faint: #62657a;
-  --text-inverse: #0e0f12;
+  --text-inverse: #2c303b;
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  --font-mono: "SF Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+  /* Type Badges - Dark */
+  --badge-story-bg: rgba(142, 213, 255, 0.15);
+  --badge-story-text: #8ed5ff;
+  --badge-job-bg: rgba(56, 189, 248, 0.15);
+  --badge-job-text: #38bdf8;
+  --badge-poll-bg: rgba(221, 183, 255, 0.15);
+  --badge-poll-text: #ddb7ff;
+  --badge-ask-bg: rgba(255, 185, 210, 0.15);
+  --badge-ask-text: #ffb9d2;
+  --badge-show-bg: rgba(255, 185, 210, 0.15);
+  --badge-show-text: #ffb9d2;
 
-  /* Type Badges */
-  --badge-story-bg: rgba(66, 153, 225, 0.15);
-  --badge-story-text: #63b3ed;
-  --badge-job-bg: rgba(72, 187, 120, 0.15);
-  --badge-job-text: #68d391;
-  --badge-poll-bg: rgba(237, 137, 54, 0.18);
-  --badge-poll-text: #f6ad55;
-  --badge-ask-bg: rgba(183, 148, 244, 0.18);
-  --badge-ask-text: #d6bcfa;
-  --badge-show-bg: rgba(246, 173, 85, 0.18);
-  --badge-show-text: #fbd38d;
+  /* Status */
+  --status-live: #38bdf8;
+  --status-live-pulse: rgba(56, 189, 248, 0.4);
+  --status-error: #ffb4ab;
+  --status-error-container: #93000a;
+  --status-on-error: #690005;
+  --status-on-error-container: #ffdad6;
+  --status-warning: #ffb9d2;
 
-  /* Live & Status */
-  --status-live: #10b981;
-  --status-live-pulse: rgba(16, 185, 129, 0.4);
-  --status-error: #ef4444;
-  --status-warning: #f59e0b;
-
-  /* Spacing & Layout */
-  --max-content-width: 1040px;
-  --radius-sm: 6px;
-  --radius-md: 10px;
+  /* Layout */
+  --max-content-width: 1440px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
   --radius-lg: 16px;
+  --radius-xl: 24px;
   --radius-full: 9999px;
+
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 40px;
 
   /* Transitions */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
   --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-spring: 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
   --shadow-md: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 12px 32px 0 rgba(0, 0, 0, 0.5);
   --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.7);
+  --shadow-glow-primary: 0 0 16px rgba(56, 189, 248, 0.45);
+  --shadow-glow-secondary: 0 0 16px rgba(111, 0, 190, 0.35);
+  --shadow-inner: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+
+  /* Glassmorphism */
+  --glass-bg: rgba(23, 27, 38, 0.7);
+  --glass-border: rgba(135, 146, 154, 0.15);
+  --glass-blur: blur(20px);
+
+  /* Neo-brutalist shadows (light theme) */
+  --shadow-brutal: 4px 4px 0 #141622;
+  --shadow-brutal-hover: 6px 6px 0 #141622;
+  --shadow-brutal-active: 2px 2px 0 #141622;
+  --shadow-brutal-lg: 8px 8px 0 #141622;
+}
+
+/* Light Theme - Neo-Brutalist */
+:root[data-theme="light"] {
+  /* Neo-Brutalist Palette */
+  --color-primary: #ffd23f;        /* yellow */
+  --color-primary-hover: #ffdb5c;
+  --color-primary-light: rgba(255, 210, 63, 0.2);
+  --color-primary-focus: rgba(255, 210, 63, 0.3);
+  --color-primary-container: #ffd23f;
+  --color-primary-fixed: #fff8e0;
+  --color-primary-fixed-dim: #ffe8a0;
+  --color-on-primary: #141622;
+  --color-on-primary-container: #141622;
+  --color-on-primary-fixed: #141622;
+  --color-on-primary-fixed-variant: #141622;
+
+  --color-secondary: #3ddc97;      /* mint */
+  --color-secondary-hover: #5de8a8;
+  --color-secondary-light: rgba(61, 220, 151, 0.2);
+  --color-secondary-container: #3ddc97;
+  --color-secondary-fixed: #e0fff0;
+  --color-secondary-fixed-dim: #bfffe0;
+  --color-on-secondary: #141622;
+  --color-on-secondary-container: #141622;
+  --color-on-secondary-fixed: #141622;
+  --color-on-secondary-fixed-variant: #141622;
+
+  --color-tertiary: #ff7eb6;       /* pink */
+  --color-tertiary-hover: #ff9ec9;
+  --color-tertiary-light: rgba(255, 126, 182, 0.2);
+  --color-tertiary-container: #ff7eb6;
+  --color-tertiary-fixed: #ffe0ef;
+  --color-tertiary-fixed-dim: #ffc0dc;
+  --color-on-tertiary: #141622;
+  --color-on-tertiary-container: #141622;
+  --color-on-tertiary-fixed: #141622;
+  --color-on-tertiary-fixed-variant: #141622;
+
+  --color-lilac: #b69cff;          /* lilac for polls */
+  --color-lilac-hover: #c8b3ff;
+  --color-lilac-light: rgba(182, 156, 255, 0.2);
+  --color-lilac-container: #b69cff;
+  --color-on-lilac: #141622;
+
+  --color-sky: #5ac8fa;            /* sky for jobs */
+  --color-sky-hover: #7ad0fa;
+  --color-sky-light: rgba(90, 200, 250, 0.2);
+  --color-sky-container: #5ac8fa;
+  --color-on-sky: #141622;
+
+  --color-orange: #ff6600;         /* orange for show/ask */
+  --color-orange-hover: #ff771a;
+  --color-orange-light: rgba(255, 102, 0, 0.2);
+  --color-orange-container: #ff6600;
+  --color-on-orange: #ffffff;
+
+  /* Logo Orange (only on Y logo) */
+  --color-logo: #ff6600;
+  --color-logo-glow: rgba(255, 102, 0, 0.3);
+
+  /* Neutrals - Light Neo-Brutalist */
+  --bg-app: #fff6e5;
+  --bg-surface: #ffffff;
+  --bg-surface-low: #ffffff;
+  --bg-surface-container-low: #ffffff;
+  --bg-surface-container: #ffffff;
+  --bg-surface-container-high: #fff6e5;
+  --bg-surface-container-highest: #ffe8c0;
+  --bg-surface-container-lowest: #ffffff;
+  --bg-surface-dim: #fff6e5;
+  --bg-surface-bright: #ffffff;
+
+  --border-subtle: #141622;
+  --border-outline: #141622;
+  --border-outline-variant: #141622;
+
+  --text-main: #141622;
+  --text-on-surface: #141622;
+  --text-on-surface-variant: #141622;
+  --text-muted: #141622;
+  --text-faint: #141622;
+  --text-inverse: #fff6e5;
+
+  /* Type Badges - Light Neo-Brutalist (solid stickers) */
+  --badge-story-bg: #ffd23f;
+  --badge-story-text: #141622;
+  --badge-job-bg: #5ac8fa;
+  --badge-job-text: #141622;
+  --badge-poll-bg: #b69cff;
+  --badge-poll-text: #141622;
+  --badge-ask-bg: #ff7eb6;
+  --badge-ask-text: #141622;
+  --badge-show-bg: #ff6600;
+  --badge-show-text: #ffffff;
+
+  /* Status */
+  --status-live: #3ddc97;
+  --status-live-pulse: rgba(61, 220, 151, 0.4);
+  --status-error: #ff4444;
+  --status-error-container: #ffcccc;
+  --status-on-error: #141622;
+  --status-on-error-container: #ffcccc;
+  --status-warning: #ffd23f;
+
+  /* Shadows - Neo-Brutalist (no blur, hard edges) */
+  --shadow-sm: 2px 2px 0 #141622;
+  --shadow-md: 4px 4px 0 #141622;
+  --shadow-lg: 6px 6px 0 #141622;
+  --shadow-xl: 8px 8px 0 #141622;
+  --shadow-glow-primary: 4px 4px 0 #141622;
+  --shadow-glow-secondary: 4px 4px 0 #141622;
+  --shadow-inner: inset 2px 2px 0 #141622;
+
+  /* Glassmorphism - disabled for neo-brutalist */
+  --glass-bg: #ffffff;
+  --glass-border: #141622;
+  --glass-blur: none;
+
+  /* Shimmer for skeletons */
+  --shimmer-color: rgba(255, 210, 63, 0.3);
 }

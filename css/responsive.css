@@ -6,6 +6,8 @@
   .header-inner {
     padding: 0.75rem 1rem;
     gap: 0.75rem;
+    height: auto;
+    min-height: 72px;
   }
 
   .feed-nav {
@@ -14,6 +16,7 @@
     overflow-x: auto;
     white-space: nowrap;
     padding: 0.35rem;
+    justify-content: flex-start;
   }
 
   .nav-tab {
@@ -31,6 +34,22 @@
   .search-input:focus {
     width: 200px;
   }
+
+  .control-select {
+    padding: 4px 8px;
+    font-size: 0.625rem;
+  }
+
+  /* Feed header stacking */
+  .feed-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-sm);
+  }
+
+  .feed-title {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 640px) {
@@ -42,6 +61,7 @@
     flex-direction: column;
     align-items: stretch;
     gap: 0.75rem;
+    padding: 0.75rem;
   }
 
   .header-brand {
@@ -73,7 +93,7 @@
 
   .control-select {
     flex: 1;
-    font-size: 0.75rem;
+    font-size: 0.625rem;
   }
 
   .live-status-btn {
@@ -82,51 +102,67 @@
 
   /* Post Card Mobile */
   .post-card {
-    padding: 0.85rem;
+    padding: var(--space-sm);
   }
 
   .card-main {
-    gap: 0.5rem;
+    gap: var(--space-sm);
   }
 
   .card-index {
-    font-size: 0.85rem;
-    min-width: 18px;
+    font-size: 0.75rem;
+    min-width: 22px;
   }
 
   .card-title {
-    font-size: 0.95rem;
+    font-size: 0.9375rem;
   }
 
   .card-meta {
-    font-size: 0.75rem;
-    gap: 0.6rem;
+    font-size: 0.5625rem;
+    gap: var(--space-sm);
+  }
+
+  .card-view-btn {
+    margin-left: 0;
+    width: 100%;
+    justify-content: center;
+    margin-top: var(--space-xs);
+  }
+
+  /* Hide thumbnails on mobile */
+  .card-thumb {
+    display: none;
   }
 
   /* Modal Dialog Mobile */
   .modal-dialog {
     width: 96%;
     max-height: 94vh;
-    border-radius: var(--radius-md);
+    border-radius: var(--radius-lg);
   }
 
   .modal-header,
   .modal-body {
-    padding: 1rem;
+    padding: var(--space-md);
   }
 
   .modal-title {
-    font-size: 1.15rem;
+    font-size: 1.25rem;
+  }
+
+  .modal-actions .btn {
+    flex: 1 1 100%;
   }
 
   /* Comments Indentation on Small Screens */
   .comment-children {
-    margin-left: 0.65rem;
-    padding-left: 0.45rem;
+    margin-left: 10px;
+    padding-left: 8px;
   }
 
   .comment-card {
-    padding: 0.65rem 0.75rem;
+    padding: var(--space-xs) var(--space-sm);
   }
 
   /* Live Drawer Mobile */
@@ -140,5 +176,61 @@
     right: 1rem;
     left: 1rem;
     max-width: none;
+  }
+
+  /* Feed footer */
+  .feed-footer {
+    padding: var(--space-lg) 0;
+  }
+
+  .load-more-btn {
+    min-width: 100%;
+    width: 100%;
+  }
+
+  .feed-end-notice span {
+    font-size: 0.5rem;
+    padding: 4px 10px;
+  }
+}
+
+/* Large screens - ensure max width */
+@media (min-width: 1440px) {
+  .header-inner,
+  #app-main {
+    max-width: 1440px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode adjustments */
+@media (prefers-contrast: high) {
+  :root {
+    --glass-border: currentColor;
+    --border-outline-variant: currentColor;
+  }
+
+  .post-card,
+  .comment-card,
+  .modal-dialog,
+  .live-drawer,
+  .toast {
+    border-width: 2px;
+  }
+
+  .nav-tab.active {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
   }
 }
