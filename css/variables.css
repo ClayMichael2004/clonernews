@@ -1,0 +1,62 @@
+/**
+ * Design Tokens & CSS Variables
+ */
+:root {
+  /* Brand Palette */
+  --color-primary: #ff6600;
+  --color-primary-hover: #ff771a;
+  --color-primary-light: rgba(255, 102, 0, 0.12);
+  --color-primary-focus: rgba(255, 102, 0, 0.25);
+
+  /* Neutrals (Modern Dark-First Theme) */
+  --bg-app: #0e0f12;
+  --bg-surface: #16171d;
+  --bg-surface-elevated: #1f2029;
+  --bg-surface-hover: #262733;
+  --border-subtle: #2b2d3a;
+  --border-focus: #ff6600;
+
+  /* Typography */
+  --text-main: #f0f1f5;
+  --text-muted: #9598ab;
+  --text-faint: #62657a;
+  --text-inverse: #0e0f12;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  --font-mono: "SF Mono", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+  /* Type Badges */
+  --badge-story-bg: rgba(66, 153, 225, 0.15);
+  --badge-story-text: #63b3ed;
+  --badge-job-bg: rgba(72, 187, 120, 0.15);
+  --badge-job-text: #68d391;
+  --badge-poll-bg: rgba(237, 137, 54, 0.18);
+  --badge-poll-text: #f6ad55;
+  --badge-ask-bg: rgba(183, 148, 244, 0.18);
+  --badge-ask-text: #d6bcfa;
+  --badge-show-bg: rgba(246, 173, 85, 0.18);
+  --badge-show-text: #fbd38d;
+
+  /* Live & Status */
+  --status-live: #10b981;
+  --status-live-pulse: rgba(16, 185, 129, 0.4);
+  --status-error: #ef4444;
+  --status-warning: #f59e0b;
+
+  /* Spacing & Layout */
+  --max-content-width: 1040px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 12px 32px 0 rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.7);
+}

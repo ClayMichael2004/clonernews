@@ -1,0 +1,23 @@
+{
+  "name": "clonernews",
+  "version": "1.0.0",
+  "description": "High-performance, responsive reader for the Hacker News API with progressive loading, live updates, and nested comment threads.",
+  "type": "module",
+  "main": "js/app.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "node --test tests/*.test.js"
+  },
+  "keywords": [
+    "hackernews",
+    "reader",
+    "progressive-loading",
+    "live-data",
+    "vanilla-js",
+    "zone01",
+    "piscine-js"
+  ],
+  "author": "michaelochieng0",
+  "license": "MIT"
+}
