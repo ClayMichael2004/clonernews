@@ -1,31 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ClonerNews — High-Performance Hacker News Client</title>
   <meta name="description" content="Clean, responsive UI for Hacker News with progressive loading, 5-second live data updates, and hierarchical nested comment threads.">
-  <meta name="theme-color" content="#0e0f12">
+  <meta name="theme-color" content="#0f131d">
 
-  <!-- SVG Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ff6600'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='900' font-size='20'%3EY%3C/text%3E%3C/svg%3E">
 
-  <!-- Stylesheets -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <script>
+    try {
+      var t = localStorage.getItem('theme') || localStorage.getItem('clonernews-theme');
+      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {}
+  </script>
+
   <link rel="stylesheet" href="css/variables.css">
   <link rel="stylesheet" href="css/base.css">
   <link rel="stylesheet" href="css/components.css">
   <link rel="stylesheet" href="css/comments.css">
+  <link rel="stylesheet" href="css/banner.css">
   <link rel="stylesheet" href="css/live.css">
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-  <!-- Header: Navigation, Search, Filter, Sort, Live Status -->
   <header id="app-header"></header>
-
-  <!-- Main Feed: Stories, Jobs, Polls, Progressive Loader -->
   <main id="app-main"></main>
 
-  <!-- Site Footer -->
   <footer class="app-site-footer">
     <p>
       <strong>ClonerNews</strong> &bull; Crafted with Vanilla JavaScript, Native Fetch &amp; Web Standards.
@@ -33,16 +40,10 @@
     </p>
   </footer>
 
-  <!-- Detail Modal & Comments Viewer -->
   <div id="app-modal"></div>
-
-  <!-- Live Data Drawer -->
   <div id="app-live-drawer"></div>
-
-  <!-- Toast Notifications Container -->
   <div id="toast-container" aria-live="polite" aria-atomic="true"></div>
 
-  <!-- Application Bootstrap -->
   <script type="module" src="js/app.js"></script>
 </body>
 </html>
