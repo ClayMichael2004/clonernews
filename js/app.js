@@ -15,6 +15,7 @@ import { Header } from './components/Header.js';
 import { PostList } from './components/PostList.js';
 import { PostModal } from './components/PostModal.js';
 import { LiveDrawer } from './components/LiveDrawer.js';
+import { initTheme } from './theme.js';
 
 class App {
   constructor() {
@@ -22,7 +23,7 @@ class App {
     this.store = new Store();
     this.notificationService = new NotificationService();
     this.actions = createActions(this.store, this.hnClient, this.notificationService);
-    
+
     this.liveUpdateService = new LiveUpdateService({
       hnClient: this.hnClient,
       store: this.store,
@@ -36,6 +37,9 @@ class App {
    */
   async init() {
     console.log('Initializing ClonerNews...');
+
+    // Initialize Theme (Dark/Light/System)
+    initTheme();
 
     // Mount toast notification service container
     const toastContainer = document.getElementById('toast-container');
@@ -111,7 +115,6 @@ class App {
     } else if (feedParam && CONFIG.FEEDS[feedParam.toUpperCase()]) {
       this.actions.changeFeed(feedParam);
     } else {
-      // Default feed: 'new' stories as mandated by the newest-first philosophy
       this.actions.changeFeed('new');
     }
   }

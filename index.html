@@ -3,21 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ClonerNews — High-Performance Hacker News Client</title>
-  <meta name="description" content="Clean, responsive UI for Hacker News with progressive loading, 5-second live data updates, and hierarchical nested comment threads.">
-  <meta name="theme-color" content="#0f131d">
+  <title>ClonerNews — Enterprise Hacker News Client</title>
+  <meta name="description" content="High-performance, accessible reader for Hacker News with progressive loading, 5-second live data updates, and nested comment threads.">
+  <meta name="theme-color" content="#0d1117">
 
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ff6600'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='900' font-size='20'%3EY%3C/text%3E%3C/svg%3E">
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23ea580c'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='800' font-size='18'%3EY%3C/text%3E%3C/svg%3E">
 
   <script>
     try {
-      var t = localStorage.getItem('theme') || localStorage.getItem('clonernews-theme');
-      if (!t) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
-      document.documentElement.setAttribute('data-theme', t);
+      var t = localStorage.getItem('clonernews-theme') || localStorage.getItem('theme');
+      if (!t && window.matchMedia) t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', t || 'dark');
     } catch (e) {}
   </script>
 
@@ -30,12 +26,12 @@
   <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
-  <header id="app-header"></header>
-  <main id="app-main"></main>
+  <header id="app-header" role="banner"></header>
+  <main id="app-main" role="main"></main>
 
-  <footer class="app-site-footer">
+  <footer class="app-site-footer" role="contentinfo">
     <p>
-      <strong>ClonerNews</strong> &bull; Crafted with Vanilla JavaScript, Native Fetch &amp; Web Standards.
+      <strong>ClonerNews</strong> &bull; Built with Vanilla JavaScript, Native Fetch &amp; Web Standards.
       Powered by the <a href="https://github.com/HackerNews/API" target="_blank" rel="noopener noreferrer">Official Hacker News API</a>.
     </p>
   </footer>

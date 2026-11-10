@@ -20,7 +20,7 @@ export class CommentTree {
     if (!Array.isArray(rootNodes) || rootNodes.length === 0) {
       return `
         <div class="comments-empty">
-          <p>No comments yet on this post. Be the first to start the discussion!</p>
+          <p>No comments on this story yet.</p>
         </div>
       `;
     }
@@ -28,7 +28,7 @@ export class CommentTree {
     return `
       <div class="comment-thread-container" data-post-id="${rootPostId}">
         <div class="comment-thread-header">
-          <span class="thread-count">Showing <strong>${rootNodes.length}</strong> top-level threads (ordered newest to oldest)</span>
+          <span class="thread-count">Showing <strong>${rootNodes.length}</strong> top-level discussion threads (newest first)</span>
           <button class="thread-collapse-all-btn" id="thread-toggle-all-btn">Collapse All</button>
         </div>
         <div class="comments-list">
@@ -54,10 +54,10 @@ export class CommentTree {
     const sanitizedText = sanitizeHTML(node.text);
     const descendantCount = node.getDescendantCount();
     const isDirectChild = Number(node.parent) === Number(rootPostId);
-    
+
     const parentLabel = isDirectChild
-      ? `<span class="comment-parent-ref">↳ direct post reply</span>`
-      : `<span class="comment-parent-ref">↳ in reply to #${node.parent}</span>`;
+      ? `<span class="comment-parent-ref">direct reply</span>`
+      : `<span class="comment-parent-ref">reply to #${node.parent}</span>`;
 
     const hasChildren = node.children && node.children.length > 0;
 
@@ -69,7 +69,7 @@ export class CommentTree {
               <span class="collapse-icon">[-]</span>
             </button>
             <strong class="comment-author">@${author}</strong>
-            <span class="comment-time" title="${fullTime}">🕒 ${relativeTime}</span>
+            <span class="comment-time" title="${fullTime}">${relativeTime}</span>
             ${parentLabel}
             ${
               hasChildren
@@ -115,7 +115,7 @@ export class CommentTree {
           const body = commentNode.querySelector(`#comment-body-${commentId}`);
           const children = commentNode.querySelector(`#children-${commentId}`);
           const icon = toggleBtn.querySelector('.collapse-icon');
-          
+
           const isCollapsed = commentNode.classList.toggle('collapsed');
           if (body) body.classList.toggle('hidden', isCollapsed);
           if (children) children.classList.toggle('hidden', isCollapsed);

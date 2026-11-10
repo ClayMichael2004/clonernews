@@ -1,8 +1,8 @@
 /**
  * Polymorphic Post Card Component
  *
- * Renders Stories, Jobs, Polls, Ask HN, and Show HN posts with consistent layout
- * while highlighting type-specific details.
+ * Renders Stories, Jobs, Polls, Ask HN, and Show HN posts with a unified,
+ * high-contrast corporate layout compliant with European accessibility mandates.
  */
 
 import { formatRelativeTime, formatFullDateTime } from '../utils/time.js';
@@ -22,7 +22,7 @@ export class PostCard {
 
     const id = item.id;
     const type = item.type || 'story';
-    const title = escapeHTML(item.title || 'Untitled Post');
+    const title = escapeHTML(item.title || 'Untitled Story');
     const author = escapeHTML(item.by || 'anonymous');
     const score = item.score !== undefined ? item.score : 0;
     const commentsCount = item.descendants !== undefined ? item.descendants : (Array.isArray(item.kids) ? item.kids.length : 0);
@@ -31,12 +31,10 @@ export class PostCard {
 
     // Domain extraction for external links
     let domain = '';
-    let isExternal = false;
     if (item.url) {
       try {
         const parsed = new URL(item.url);
         domain = parsed.hostname.replace(/^www\./, '');
-        isExternal = true;
       } catch {
         domain = 'link';
       }
@@ -65,7 +63,7 @@ export class PostCard {
 
     // Content specific previews
     let specificContent = '';
-    
+
     if (type === 'poll') {
       specificContent = `
         <div class="card-poll-preview">
@@ -105,18 +103,18 @@ export class PostCard {
             ${specificContent}
 
             <footer class="card-meta">
-              ${type !== 'job' ? `<span class="meta-item meta-score">▲ <strong>${score}</strong> pts</span>` : ''}
+              ${type !== 'job' ? `<span class="meta-item meta-score"><strong>${score}</strong> points</span>` : ''}
               <span class="meta-item meta-author">by <span class="author-name">@${author}</span></span>
-              <span class="meta-item meta-time" title="${fullTime}">🕒 ${relativeTime}</span>
+              <span class="meta-item meta-time" title="${fullTime}">${relativeTime}</span>
               ${
                 type !== 'job'
-                  ? `<button class="meta-item meta-comments-btn" data-action="open-post" data-id="${id}">
-                      💬 ${commentsCount} ${commentsCount === 1 ? 'comment' : 'comments'}
+                  ? `<button class="meta-item meta-comments-btn" data-action="open-post" data-id="${id}" aria-label="${commentsCount} comments">
+                      ${commentsCount} ${commentsCount === 1 ? 'comment' : 'comments'}
                      </button>`
-                  : `<span class="meta-item meta-job-notice">💼 Direct Employment Post</span>`
+                  : `<span class="meta-item meta-job-notice">Direct Employment</span>`
               }
-              <button class="card-view-btn" data-action="open-post" data-id="${id}" title="View discussions and details">
-                View Details →
+              <button class="card-view-btn" data-action="open-post" data-id="${id}" title="View thread and discussion">
+                Discussion &rarr;
               </button>
             </footer>
           </div>

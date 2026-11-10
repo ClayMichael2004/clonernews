@@ -41,27 +41,27 @@ export class LiveDrawer {
       <aside class="live-drawer" id="live-drawer" aria-label="Live updates panel">
         <header class="live-drawer-header">
           <div class="drawer-title-group">
-            <span class="live-indicator-pulse"></span>
+            <span class="live-indicator-pulse" aria-hidden="true"></span>
             <h2>Live Data Stream</h2>
           </div>
           <button class="live-drawer-close-btn" id="live-drawer-close-btn" aria-label="Close panel">&times;</button>
         </header>
 
         <div class="live-drawer-status-bar">
-          <span class="cadence-badge">⏱ Regulated 5s Cadence</span>
+          <span class="cadence-badge">Regulated 5s Cadence</span>
           <span class="last-checked" id="live-last-checked">Listening...</span>
         </div>
 
         <div class="live-drawer-actions">
           <button class="btn btn-primary btn-block" id="live-merge-all-btn">
-            📥 Merge All New Items into Feed
+            Merge New Stories into Feed
           </button>
         </div>
 
         <div class="live-items-list" id="live-items-list">
           <div class="live-empty-state">
             <p>Waiting for live stream updates from Hacker News...</p>
-            <small>Live poller queries /v0/updates.json every 5 seconds.</small>
+            <small>Poller queries /v0/updates.json every 5 seconds.</small>
           </div>
         </div>
       </aside>
@@ -101,7 +101,6 @@ export class LiveDrawer {
     const lastChecked = this.container.querySelector('#live-last-checked');
     const mergeBtn = this.container.querySelector('#live-merge-all-btn');
 
-    // Toggle open state
     if (drawer && backdrop) {
       drawer.classList.toggle('open', state.isLiveDrawerOpen);
       backdrop.classList.toggle('open', state.isLiveDrawerOpen);
@@ -114,8 +113,8 @@ export class LiveDrawer {
     if (mergeBtn) {
       mergeBtn.disabled = !state.liveUpdates || state.liveUpdates.length === 0;
       mergeBtn.textContent = state.liveUpdates?.length
-        ? `📥 Merge ${state.liveUpdates.length} New Items into Feed`
-        : 'Feed Up to Date';
+        ? `Merge ${state.liveUpdates.length} New Stories into Feed`
+        : 'Feed is Up to Date';
     }
 
     if (itemsList) {
@@ -140,13 +139,13 @@ export class LiveDrawer {
             <div class="live-item-card" data-id="${item.id}">
               <div class="live-item-header">
                 <span class="type-badge badge-${type}">${type.toUpperCase()}</span>
-                <span class="live-item-time">🕒 ${time}</span>
+                <span class="live-item-time">${time}</span>
               </div>
               <h4 class="live-item-title">${title}</h4>
               <div class="live-item-footer">
                 <span class="live-item-author">by @${author}</span>
                 <button class="btn btn-sm btn-outline" data-action="open-live-item" data-id="${item.id}">
-                  Inspect →
+                  Inspect &rarr;
                 </button>
               </div>
             </div>

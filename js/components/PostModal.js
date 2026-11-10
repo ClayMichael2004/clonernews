@@ -52,7 +52,7 @@ export class PostModal {
           </header>
 
           <main class="modal-body">
-            <h1 class="modal-title" id="modal-post-title">Loading post...</h1>
+            <h1 class="modal-title" id="modal-post-title">Loading story...</h1>
 
             <div class="modal-meta" id="modal-meta-bar">
               <!-- Meta items populated dynamically -->
@@ -64,7 +64,7 @@ export class PostModal {
 
             <section class="modal-comments-section" id="modal-comments-section">
               <div class="comments-section-header">
-                <h3>💬 Discussion & Comments</h3>
+                <h3>Discussion & Comments</h3>
                 <span class="comments-sort-notice">Ordered newest to oldest</span>
               </div>
               <div class="comments-container" id="modal-comments-container">
@@ -84,7 +84,6 @@ export class PostModal {
     backdrop.addEventListener('click', () => this.actions.closePost());
     closeBtn.addEventListener('click', () => this.actions.closePost());
 
-    // Close on Escape key
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && this.store.getState().activePost) {
         this.actions.closePost();
@@ -121,7 +120,6 @@ export class PostModal {
     badgeEl.className = `type-badge badge-${type}`;
     badgeEl.textContent = type.toUpperCase();
 
-    // Render metadata bar
     const relativeTime = formatRelativeTime(post.time);
     const fullTime = formatFullDateTime(post.time);
     const author = escapeHTML(post.by || 'anonymous');
@@ -129,13 +127,12 @@ export class PostModal {
     const commentsCount = post.descendants !== undefined ? post.descendants : (Array.isArray(post.kids) ? post.kids.length : 0);
 
     metaBar.innerHTML = `
-      ${type !== 'job' ? `<span class="meta-item">▲ <strong>${score}</strong> points</span>` : ''}
+      ${type !== 'job' ? `<span class="meta-item"><strong>${score}</strong> points</span>` : ''}
       <span class="meta-item">Submitted by <strong class="author-name">@${author}</strong></span>
-      <span class="meta-item" title="${fullTime}">🕒 ${relativeTime}</span>
-      ${type !== 'job' ? `<span class="meta-item">💬 <strong>${commentsCount}</strong> comments</span>` : ''}
+      <span class="meta-item" title="${fullTime}">${relativeTime}</span>
+      ${type !== 'job' ? `<span class="meta-item"><strong>${commentsCount}</strong> comments</span>` : ''}
     `;
 
-    // Render main post content (external link, self-text, or poll)
     let contentHtml = '';
 
     if (post.url) {
@@ -143,14 +140,14 @@ export class PostModal {
       try {
         hostname = new URL(post.url).hostname.replace(/^www\./, '');
       } catch {
-        hostname = 'external link';
+        hostname = 'external source';
       }
 
       contentHtml += `
         <div class="modal-link-box">
-          <p class="modal-link-label">External Article URL:</p>
+          <p class="modal-link-label">Original Article Source:</p>
           <a href="${escapeHTML(post.url)}" target="_blank" rel="noopener noreferrer nofollow" class="btn btn-primary modal-outbound-link">
-            Visit Article on ${hostname} ↗
+            Open Article on ${hostname} &rarr;
           </a>
         </div>
       `;
@@ -173,11 +170,10 @@ export class PostModal {
 
     mainContent.innerHTML = contentHtml;
 
-    // Render Comments Section
     if (state.commentsLoading) {
       commentsContainer.innerHTML = `
         <div class="comments-loading-state">
-          <p>Fetching latest comments from Hacker News...</p>
+          <p>Fetching discussion thread...</p>
           ${Skeleton.renderComments(3)}
         </div>
       `;
@@ -193,7 +189,6 @@ export class PostModal {
         retryBtn.addEventListener('click', () => this.actions.openPost(post.id));
       }
     } else {
-      // Tree already sorted newest to oldest
       commentsContainer.innerHTML = CommentTree.render(state.activePostComments, post.id);
       CommentTree.bindEvents(commentsContainer);
     }
