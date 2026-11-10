@@ -62,11 +62,15 @@ export function createActions(store, hnClient, notificationService) {
         const sortedItems = sortByNewest(enrichedItems);
         const visibleSet = new Set(sortedItems.map((p) => p.id));
 
+        const totalPages = Math.ceil(feedIds.length / pageSize) || 1;
+
         store.setState({
           feedIds,
           posts: sortedItems,
           visiblePostIds: visibleSet,
           page: 1,
+          currentPage: 1,
+          totalPages,
           hasMore: feedIds.length > pageSize,
           loading: false
         });
@@ -315,6 +319,104 @@ export function createActions(store, hnClient, notificationService) {
         sortBy,
         posts: sorted
       });
+    },
+
+    /**
+     * Navigate to a specific page.
+     * @param {number} pageNumber
+     */
+    async goToPage(pageNumber) {
+      const state = store.getState();
+      if (pageNumber < 1 || pageNumber > state.totalPages || state.loadingMore) {
+        return;
+      }
+
+      store.setState({ loadingMore: true });
+
+      try {
+        const { feedIds, pageSize, posts, visiblePostIds } = store.getState();
+        const start = (pageNumber - 1) * pageSize;
+        const end = Math.min(start + pageSize, feedIds.length);
+        
+        // If we already have these posts loaded, just update the page
+        if (end <= posts.length) {
+          store.setState({
+            currentPage: pageNumber,
+            loadingMore: false
+          });
+          return;
+        }
+
+        const nextBatchIds = feedIds.slice(start, end);
+
+        if (nextBatchIds.length === 0) {
+          store.setState({ hasMore: false, loadingMore: false });
+          return;
+        }
+
+        const rawItems = await hnClient.getItems(nextBatchIds);
+
+        const enrichedItems = await Promise.all(
+          rawItems.filter(Boolean).map(async (item) => {
+            if (item.type === 'poll') {
+              return await hnClient.getPollDetails(item);
+            }
+            return item;
+          })
+        );
+
+        const newPosts = [];
+        const updatedVisibleSet = new Set(visiblePostIds);
+
+        for (const item of enrichedItems) {
+          if (!updatedVisibleSet.has(item.id)) {
+            updatedVisibleSet.add(item.id);
+            newPosts.push(item);
+          }
+        }
+
+        const combined = [...posts, ...newPosts];
+
+        if (state.sortBy === 'newest') {
+          sortByNewest(combined, false);
+        }
+
+        store.setState({
+          posts: combined,
+          visiblePostIds: updatedVisibleSet,
+          currentPage: pageNumber,
+          page: pageNumber,
+          hasMore: end < feedIds.length,
+          loadingMore: false
+        });
+      } catch (err) {
+        console.error('[Actions] goToPage failed:', err);
+        store.setState({ loadingMore: false });
+        notificationService?.showToast({
+          message: 'Failed to load page. Please retry.',
+          type: 'error'
+        });
+      }
+    },
+
+    /**
+     * Navigate to the previous page.
+     */
+    previousPage() {
+      const state = store.getState();
+      if (state.currentPage > 1) {
+        this.goToPage(state.currentPage - 1);
+      }
+    },
+
+    /**
+     * Navigate to the next page.
+     */
+    nextPage() {
+      const state = store.getState();
+      if (state.currentPage < state.totalPages) {
+        this.goToPage(state.currentPage + 1);
+      }
     },
 
     /**

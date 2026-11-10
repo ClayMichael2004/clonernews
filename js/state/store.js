@@ -14,6 +14,8 @@ export class Store {
       visiblePostIds: new Set(),
       page: 0,
       pageSize: 15,
+      currentPage: 1,
+      totalPages: 1,
       hasMore: true,
       loading: false,
       loadingMore: false,
